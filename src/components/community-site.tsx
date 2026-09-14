@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
-import { ArrowDown, ArrowRight, ArrowUpRight, Check, CheckCheck, CircleHelp, Database, Fingerprint, Home, LoaderCircle, LockKeyhole, MapPin, Menu, Network, Route, ScanLine, ShieldAlert, ShieldCheck, X } from "lucide-react";
+import Link from "next/link";
+import { ArrowDown, ArrowUpRight, Check, CheckCheck, CircleHelp, Database, Fingerprint, Home, LoaderCircle, LockKeyhole, MapPin, Menu, Network, Route, ScanLine, ShieldAlert, ShieldCheck, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -19,7 +20,7 @@ const steps = [
 ];
 
 function Brand({ footer = false }: { footer?: boolean }) {
-  return <a className={`brand ${footer ? "brand-footer" : ""}`} href="#top" aria-label="DeFlock Tell City home"><span className="brand-mark"><ScanLine size={23} strokeWidth={1.9} /></span><span>DeFlock<span className="brand-city">TELL CITY</span></span></a>;
+  return <Link className={`brand ${footer ? "brand-footer" : ""}`} href="/#top" aria-label="DeFlock Tell City home"><span className="brand-mark"><ScanLine size={23} strokeWidth={1.9} /></span><span>DeFlock<span className="brand-city">TELL CITY</span></span></Link>;
 }
 
 function Journey() {
@@ -141,7 +142,7 @@ export function CommunitySite() {
 
   return <div id="top">
     <a className="skip-link" href="#main">Skip to content</a>
-    <header className="site-header"><div className="container header-inner"><Brand /><nav className="desktop-nav" aria-label="Main navigation"><a href="#how-it-works">How it works</a><a href="#risks">The risks</a><a href="#questions">Common questions</a></nav><a href="#petition" className="nav-petition">Sign the petition <ArrowUpRight size={16} /></a><Button variant="ghost" size="icon" className="mobile-menu-button" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="mobile-nav" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</Button></div>{menuOpen && <nav id="mobile-nav" className="mobile-nav" aria-label="Mobile navigation">{[["How it works", "how-it-works"], ["The risks", "risks"], ["Common questions", "questions"], ["Sign the petition", "petition"]].map(([text, id]) => <a key={id} href={`#${id}`} onClick={() => setMenuOpen(false)}>{text}<ArrowUpRight size={16} /></a>)}</nav>}</header>
+    <header className="site-header"><div className="container header-inner"><Brand /><nav className="desktop-nav" aria-label="Main navigation"><a href="#how-it-works">How it works</a><a href="#risks">The risks</a><Link href="/public-records">Public records</Link><a href="#questions">Common questions</a></nav><a href="#petition" className="nav-petition">Sign the petition <ArrowUpRight size={16} /></a><Button variant="ghost" size="icon" className="mobile-menu-button" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="mobile-nav" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</Button></div>{menuOpen && <nav id="mobile-nav" className="mobile-nav" aria-label="Mobile navigation">{[{ text: "How it works", href: "#how-it-works" }, { text: "The risks", href: "#risks" }, { text: "Public records", href: "/public-records" }, { text: "Common questions", href: "#questions" }, { text: "Sign the petition", href: "#petition" }].map(({ text, href }) => <Link key={href} href={href} onClick={() => setMenuOpen(false)}>{text}<ArrowUpRight size={16} /></Link>)}</nav>}</header>
 
     <main id="main">
       <section className="hero container" aria-labelledby="hero-title"><div className="hero-copy"><div className="location-tag"><MapPin size={14} /><span>TELL CITY, INDIANA</span><span className="tag-divider" />A COMMUNITY INITIATIVE</div><h1 id="hero-title">Our streets.<br />Our lives.<br /><span>Our privacy.</span></h1><p className="hero-description">Living in a small town shouldn’t mean leaving a searchable trail. Let’s take a closer look at license plate cameras—and have a say in their place in our community.</p><aside className="hero-surveillance" aria-labelledby="surveillance-title"><ShieldAlert aria-hidden="true" size={22} /><div><span className="eyebrow">OUR POSITION</span><h2 id="surveillance-title">This is warrantless mass surveillance.</h2><p>ALPR cameras record every passing vehicle without individualized suspicion, then turn those sightings into searchable location data. Where no warrant is required to search that database, ordinary residents can be tracked without first making a case to a judge.</p><a href={sources[4].url} target="_blank" rel="noreferrer">See the evidence <ArrowUpRight size={14} /></a></div></aside><div className="hero-actions"><a className="action-button" href="#petition">Sign the petition <ArrowUpRight size={18} /></a><a className="secondary-action" href="#risks">Understand the risks <ArrowDown size={16} /></a></div><div className="hero-footnote"><Fingerprint size={20} /><span>Public safety matters. So does your privacy.</span></div></div><Journey /></section>

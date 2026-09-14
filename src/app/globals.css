@@ -268,6 +268,64 @@ h2 { font-size: clamp(32px, 3.4vw, 46px); font-weight: 540; letter-spacing: -.05
 .footer-top > a:last-child { display: flex; align-items: center; gap: 10px; font-size: 12px; }
 .footer-bottom { display: flex; justify-content: space-between; gap: 30px; padding-block: 23px; border-top: 1px solid #484848; color: #b4b4b4; font-size: 10px; line-height: 1.8; }
 .footer-bottom > span:last-child { flex-shrink: 0; font-family: "Geist Mono Variable", monospace; letter-spacing: .07em; }
+
+/* Public records */
+.records-page { min-height: 100vh; background-color: var(--background); background-image: linear-gradient(#ffffff05 1px, transparent 1px), linear-gradient(90deg, #ffffff05 1px, transparent 1px); background-size: 40px 40px; }
+.records-header-inner { justify-content: space-between; }
+.records-nav { display: flex; align-items: center; gap: 29px; margin-left: auto; }
+.records-nav > a:first-child { display: inline-flex; align-items: center; gap: 7px; color: #c8c8c8; font-size: 14px; }
+.records-nav > a:first-child:hover { color: #ffffff; text-decoration: underline; }
+.records-hero { padding-block: 89px 72px; display: grid; grid-template-columns: 1.25fr .75fr; align-items: end; gap: 80px; }
+.records-hero-copy { max-width: 760px; }
+.records-hero .section-kicker { margin-bottom: 27px; }
+.records-hero h1 { font-size: clamp(58px, 7.5vw, 103px); font-weight: 580; letter-spacing: -.068em; line-height: .98; margin-left: -6px; }
+.records-hero h1 span { color: var(--brand-text); }
+.records-hero-copy > p { max-width: 600px; margin-top: 31px; color: #c6c6c6; font-size: 18px; line-height: 1.7; }
+.records-overview { border-top: 1px solid #555555; }
+.records-overview > div { min-height: 76px; display: flex; justify-content: space-between; align-items: center; gap: 24px; border-bottom: 1px solid #555555; }
+.records-overview dt { color: #bdbdbd; font-size: 13px; }
+.records-overview dd { color: #ffffff; font-family: "Geist Mono Variable", monospace; font-size: 27px; font-weight: 530; }
+.records-divider { background: var(--brand-red); color: #ffffff; }
+.records-divider-inner { min-height: 63px; display: flex; justify-content: space-between; align-items: center; gap: 24px; font-size: 14px; font-weight: 520; }
+.records-divider-inner > span:first-child { font-size: 17px; letter-spacing: -.02em; }
+.records-legend { display: flex; align-items: center; gap: 9px; font-family: "Geist Mono Variable", monospace; font-size: 11px; letter-spacing: .05em; text-transform: uppercase; }
+.records-legend i { width: 8px; height: 8px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 0 4px #ffffff30; }
+.records-board { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; padding-block: 68px; align-items: start; }
+.records-agency { background: #111111; border: 1px solid #3c3c3c; border-radius: 10px; padding: 32px 32px 17px; box-shadow: 0 20px 55px -45px #000000; }
+.records-agency-heading { display: flex; align-items: center; gap: 16px; }
+.records-agency-icon { width: 54px; height: 54px; display: grid; place-items: center; flex-shrink: 0; background: transparent; }
+.records-agency-icon img { width: 100%; height: 100%; object-fit: contain; }
+.records-agency-heading .eyebrow { color: #a9a9a9; font-size: 10px; text-transform: uppercase; }
+.records-agency-heading h2 { font-size: clamp(23px, 2.2vw, 31px); margin-top: 3px; line-height: 1.14; }
+.records-status { display: flex; align-items: center; gap: 9px; width: fit-content; margin-top: 27px; padding: 8px 11px; border: 1px solid #6b3a40; border-radius: 999px; color: #f0b2b7; background: #27191b; font-family: "Geist Mono Variable", monospace; font-size: 10px; font-weight: 520; letter-spacing: .035em; text-transform: uppercase; }
+.records-status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-on-dark); box-shadow: 0 0 0 3px #ff818920; }
+.records-agency-summary { min-height: 74px; margin-top: 18px; color: #bdbdbd; font-size: 14px; line-height: 1.65; }
+.records-timeline { margin-top: 26px; }
+.records-event { position: relative; display: grid; grid-template-columns: 31px 1fr; gap: 15px; min-height: 146px; }
+.records-event:not(:last-child)::before { content: ""; position: absolute; left: 14px; top: 30px; bottom: -1px; width: 1px; background: #555555; }
+.records-event-future:not(:last-child)::before, .records-event-current::before { background: repeating-linear-gradient(to bottom, #555555 0 4px, transparent 4px 8px); }
+.records-marker { position: relative; z-index: 1; width: 29px; height: 29px; display: grid; place-items: center; border-radius: 50%; color: #ffffff; background: #2d2d2d; border: 1px solid #676767; }
+.records-event-complete .records-marker { background: var(--brand-red); border-color: var(--brand-red); }
+.records-event-current .records-marker { color: var(--accent-on-dark); background: #331d21; border-color: #a14b54; box-shadow: 0 0 0 5px #c91e2b14; }
+.records-event-future .records-marker { background: #181818; border-style: dashed; }
+.records-event-future .records-marker span { width: 5px; height: 5px; border-radius: 50%; background: #777777; }
+.records-event-body { padding: 3px 0 31px; }
+.records-event-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 18px; }
+.records-event-meta time { color: #f1f1f1; font-family: "Geist Mono Variable", monospace; font-size: 11px; font-weight: 520; }
+.records-event-meta span { color: #9e9e9e; font-family: "Geist Mono Variable", monospace; font-size: 9px; letter-spacing: .055em; text-align: right; }
+.records-event-current .records-event-meta span { color: var(--accent-on-dark); }
+.records-event-body h3 { margin-top: 11px; font-size: 19px; font-weight: 540; letter-spacing: -.03em; }
+.records-event-body > p { margin-top: 7px; color: #bdbdbd; font-size: 14px; line-height: 1.65; }
+.records-event-future .records-event-body { opacity: .66; }
+.records-files { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 15px; }
+.records-files a { display: inline-flex; align-items: center; gap: 7px; padding: 9px 11px; color: #ffffff; background: var(--brand-red); border-radius: 4px; font-size: 12px; font-weight: 520; }
+.records-files a:hover { background: var(--brand-hover); }
+.records-note { margin-bottom: 83px; padding: 36px 39px; display: grid; grid-template-columns: auto 1fr; gap: 20px; background: #101010; border: 1px solid #3b3b3b; border-left: 3px solid var(--brand-red); border-radius: 8px; }
+.records-note > svg { color: var(--accent-on-dark); margin-top: 3px; }
+.records-note .eyebrow { color: var(--accent-on-dark); }
+.records-note h2 { margin-top: 8px; font-size: 29px; }
+.records-note p { max-width: 760px; margin-top: 12px; color: #bdbdbd; font-size: 14px; line-height: 1.7; }
+.records-footer { background: #0d0d0d; }
 @keyframes record-enter { from { opacity: .3; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
 /* Keep all text used to operate or understand the site legible. Diagram annotations
@@ -348,6 +406,14 @@ h2 { font-size: clamp(32px, 3.4vw, 46px); font-weight: 540; letter-spacing: -.05
   .sources-heading { align-items: flex-start; flex-direction: column; gap: 15px; }
   .source-type { display: none; }
   .footer-bottom { flex-wrap: wrap; gap: 8px; }
+  .records-hero { grid-template-columns: 1fr; gap: 46px; padding-block: 68px 55px; }
+  .records-overview { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .records-overview > div { display: block; min-height: 101px; padding: 17px 15px; border-right: 1px solid #555555; }
+  .records-overview > div:last-child { border-right: 0; }
+  .records-overview dt { min-height: 36px; }
+  .records-overview dd { margin-top: 8px; }
+  .records-board { grid-template-columns: 1fr; gap: 22px; }
+  .records-agency-summary { min-height: 0; }
 }
 @media (max-width: 680px) {
   html { scroll-padding-top: 90px; }
@@ -429,6 +495,31 @@ h2 { font-size: clamp(32px, 3.4vw, 46px); font-weight: 540; letter-spacing: -.05
   .footer-top > a:last-child { font-size: 12px; }
   .footer-bottom { gap: 13px; font-size: 11px; }
   .petition-dialog { padding: 27px 23px; }
+  .records-header-inner .brand { font-size: 21px; }
+  .records-header-inner .brand-mark { width: 34px; height: 34px; }
+  .records-nav { gap: 9px; }
+  .records-nav > a:first-child { width: 38px; height: 38px; justify-content: center; border: 1px solid #4a4a4a; border-radius: 5px; font-size: 0; }
+  .records-nav .nav-petition { font-size: 11px; gap: 6px; padding-inline: 10px; }
+  .records-hero { padding-block: 49px 43px; gap: 37px; }
+  .records-hero .section-kicker { max-width: 310px; font-size: 10px; line-height: 1.7; }
+  .records-hero h1 { font-size: clamp(53px, 15vw, 78px); margin-left: -3px; }
+  .records-hero-copy > p { margin-top: 25px; font-size: 16px; }
+  .records-overview dt { font-size: 11px; }
+  .records-overview dd { font-size: 24px; }
+  .records-divider-inner { min-height: 68px; }
+  .records-divider-inner > span:first-child { font-size: 15px; }
+  .records-legend { font-size: 9px; }
+  .records-board { padding-block: 39px; }
+  .records-agency { padding: 24px 20px 9px; }
+  .records-agency-heading { align-items: flex-start; gap: 12px; }
+  .records-agency-icon { width: 48px; height: 48px; }
+  .records-agency-heading h2 { font-size: 24px; }
+  .records-status { line-height: 1.4; }
+  .records-event { grid-template-columns: 29px 1fr; gap: 12px; min-height: 158px; }
+  .records-event-meta { display: block; }
+  .records-event-meta span { display: block; margin-top: 5px; text-align: left; }
+  .records-note { margin-bottom: 51px; padding: 27px 22px; gap: 14px; }
+  .records-note h2 { font-size: 25px; }
 }
 @media (max-width: 370px) {
   .nav-petition { display: none; }
