@@ -48,16 +48,24 @@ const timelines: AgencyTimeline[] = [
       {
         date: "September 4, 2026",
         label: "FRIDAY",
-        title: "Request received",
+        title: "Request Received",
         description: "The public records request was received by Tell City.",
         state: "complete",
       },
       {
         date: "September 11, 2026",
         label: "FRIDAY · 7 DAYS LATER",
-        title: "Receipt acknowledged",
+        title: "City Receipt Acknowledged",
         description:
           "Tell City acknowledged the request and handed it off to the Tell City Chief of Police.",
+        state: "complete",
+      },
+      {
+        date: "September 14, 2026",
+        label: "MONDAY · 3 DAYS LATER",
+        title: "TCPD Receipt Acknowledged",
+        description:
+          "Tell City Police Chief acknowledged the request. TCPD is reviewing the request however states that the extensive scope of the request may demand additional time for a thorough response.",
         state: "complete",
       },
       {
@@ -100,7 +108,7 @@ const timelines: AgencyTimeline[] = [
         label: "NO RESPONSE RECEIVED",
         title: "Awaiting acknowledgment",
         description:
-          "No acknowledgment or response has been received from the Sheriff’s Office.",
+          "No acknowledgment or response has been received from the Perry County Sheriff’s Office.",
         state: "current",
       },
       {
