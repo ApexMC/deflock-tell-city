@@ -94,12 +94,6 @@ h2 { font-size: clamp(32px, 3.4vw, 46px); font-weight: 540; letter-spacing: -.05
 .hero h1 { font-size: clamp(60px, 6.6vw, 89px); font-weight: 580; line-height: 1.03; letter-spacing: -.065em; margin-left: -5px; }
 .hero h1 > span { background: none; padding-right: 6px; color: var(--brand-text); }
 .hero-description { max-width: 450px; font-size: 17px; line-height: 1.7; color: #c0c0c0; margin-top: 28px; }
-.hero-surveillance { display: grid; grid-template-columns: auto 1fr; gap: 14px; max-width: 500px; margin-top: 24px; padding: 19px 20px; background: #101010; border: 1px solid #414141; border-left: 3px solid var(--brand-red); border-radius: 7px; }
-.hero-surveillance > svg { color: var(--accent-on-dark); margin-top: 2px; }
-.hero-surveillance .eyebrow { display: block; color: var(--accent-on-dark); margin-bottom: 5px; }
-.hero-surveillance h2 { font-size: clamp(22px, 2.2vw, 29px); font-weight: 570; letter-spacing: -.045em; line-height: 1.15; }
-.hero-surveillance p { margin-top: 10px; color: #c8c8c8; font-size: 14px; line-height: 1.65; }
-.hero-surveillance a { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; color: #ffffff; font-size: 13px; font-weight: 530; text-decoration: underline; }
 .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 24px; margin-top: 30px; }
 .action-button { display: inline-flex; justify-content: space-between; align-items: center; gap: 30px; background: var(--brand-red); color: white; border: 1px solid var(--brand-red); border-radius: 5px; min-height: 50px; padding: 13px 20px; font-weight: 500; font-size: 14px; transition: all .2s; }
 .action-button:hover { background: var(--brand-hover); transform: translateY(-2px); }
@@ -430,8 +424,6 @@ h2 { font-size: clamp(32px, 3.4vw, 46px); font-weight: 540; letter-spacing: -.05
   .tag-divider { display: block; margin-inline: 4px; }
   .hero h1 { font-size: clamp(57px, 12.8vw, 82px); margin-left: -2px; line-height: 1.02; }
   .hero-description { font-size: 16px; max-width: 470px; margin-top: 23px; }
-  .hero-surveillance { max-width: 500px; padding: 18px 17px; }
-  .hero-surveillance h2 { font-size: 24px; }
   .hero-actions { flex-direction: row; align-items: center; gap: 18px; }
   .action-button { padding-inline: 15px; gap: 20px; }
   .secondary-action { font-size: 13px; gap: 7px; }
