@@ -30,6 +30,7 @@ type AgencyTimeline = {
   agency: string;
   jurisdiction: string;
   status: string;
+  statusTone: "acknowledged" | "attention";
   summary: string;
   logo: { src: string; width: number; height: number };
   events: TimelineEvent[];
@@ -41,6 +42,7 @@ const timelines: AgencyTimeline[] = [
     agency: "Tell City / Tell City Police",
     jurisdiction: "Municipal request",
     status: "Acknowledged · awaiting records",
+    statusTone: "acknowledged",
     summary:
       "Tell City confirmed receipt one week after delivery and referred the request to the Chief of Police.",
     logo: { src: "/images/tcpd_logo.png", width: 148, height: 151 },
@@ -90,9 +92,10 @@ const timelines: AgencyTimeline[] = [
     id: "perry-county",
     agency: "Perry County Sheriff’s Office",
     jurisdiction: "County request",
-    status: "Submitted · awaiting response",
+    status: "Deemed denied · formal complaint filed",
+    statusTone: "attention",
     summary:
-      "The request has been delivered, but no acknowledgment or other response has been received.",
+      "The Sheriff’s Office did not acknowledge the request within seven days. The request is therefore deemed denied under Indiana’s Access to Public Records Act, and a formal complaint has been submitted to the Indiana Public Access Counselor.",
     logo: { src: "/images/pcso_logo.png", width: 375, height: 366 },
     events: [
       {
@@ -104,11 +107,19 @@ const timelines: AgencyTimeline[] = [
         state: "complete",
       },
       {
-        date: "As of September 14, 2026",
-        label: "NO RESPONSE RECEIVED",
-        title: "Awaiting acknowledgment",
+        date: "September 17, 2026",
+        label: "7-DAY DEADLINE ELAPSED",
+        title: "Request deemed denied",
         description:
-          "No acknowledgment or response has been received from the Perry County Sheriff’s Office.",
+          "The Perry County Sheriff’s Office failed to acknowledge or otherwise respond to the request within seven calendar days. Under Indiana’s Access to Public Records Act, Indiana Code § 5-14-3-9(b), the request is deemed denied.",
+        state: "complete",
+      },
+      {
+        date: "September 18, 2026",
+        label: "FORMAL COMPLAINT SUBMITTED",
+        title: "Public Access Counselor intervention requested",
+        description:
+          "A formal complaint was submitted to the Indiana Public Access Counselor requesting intervention in the matter against the Perry County Sheriff’s Office.",
         state: "current",
       },
       {
@@ -155,7 +166,7 @@ function Timeline({ timeline }: { timeline: AgencyTimeline }) {
         </div>
       </div>
 
-      <div className="records-status">
+      <div className={`records-status records-status-${timeline.statusTone}`}>
         <span className="records-status-dot" aria-hidden="true" />
         <span>{timeline.status}</span>
       </div>
@@ -223,7 +234,7 @@ export default function PublicRecordsPage() {
       <main id="main">
         <section className="records-hero container" aria-labelledby="records-title">
           <div className="records-hero-copy">
-            <span className="eyebrow section-kicker">PUBLIC RECORDS TRACKER · UPDATED SEPTEMBER 14, 2026</span>
+            <span className="eyebrow section-kicker">PUBLIC RECORDS TRACKER · UPDATED SEPTEMBER 18, 2026</span>
             <h1 id="records-title">
               Public records.<br />
               <span>Public timeline.</span>
@@ -268,7 +279,7 @@ export default function PublicRecordsPage() {
             <span className="eyebrow">WHY TRACK THIS PUBLICLY?</span>
             <h2 id="records-note-title">Transparency should be easy to follow.</h2>
             <p>
-              This page reflects correspondence received as of September 14, 2026. It will be updated as agencies respond and records are released.
+              This page reflects correspondence and formal actions taken as of September 18, 2026. It will be updated as agencies respond and records are released.
             </p>
           </div>
         </aside>

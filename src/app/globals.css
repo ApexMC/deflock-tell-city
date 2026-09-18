@@ -97,6 +97,8 @@ h2 { font-size: clamp(32px, 3.4vw, 46px); font-weight: 540; letter-spacing: -.05
 .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 24px; margin-top: 30px; }
 .action-button { display: inline-flex; justify-content: space-between; align-items: center; gap: 30px; background: var(--brand-red); color: white; border: 1px solid var(--brand-red); border-radius: 5px; min-height: 50px; padding: 13px 20px; font-weight: 500; font-size: 14px; transition: all .2s; }
 .action-button:hover { background: var(--brand-hover); transform: translateY(-2px); }
+.public-records-action { display: inline-flex; justify-content: space-between; align-items: center; gap: 20px; min-height: 50px; padding: 13px 20px; border: 1px solid #ffffff; border-radius: 5px; color: #181818; background: #ffffff; font-size: 14px; font-weight: 600; transition: background .2s, border-color .2s, transform .2s; }
+.public-records-action:hover { color: #181818; background: #dedede; border-color: #dedede; transform: translateY(-2px); }
 .secondary-action { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500; }
 .secondary-action:hover { text-decoration: underline; }
 .hero-footnote { display: flex; align-items: center; gap: 10px; color: #acacac; margin-top: 37px; font-size: 12px; }
@@ -293,6 +295,8 @@ h2 { font-size: clamp(32px, 3.4vw, 46px); font-weight: 540; letter-spacing: -.05
 .records-agency-heading h2 { font-size: clamp(23px, 2.2vw, 31px); margin-top: 3px; line-height: 1.14; }
 .records-status { display: flex; align-items: center; gap: 9px; width: fit-content; margin-top: 27px; padding: 8px 11px; border: 1px solid #6b3a40; border-radius: 999px; color: #f0b2b7; background: #27191b; font-family: "Geist Mono Variable", monospace; font-size: 10px; font-weight: 520; letter-spacing: .035em; text-transform: uppercase; }
 .records-status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-on-dark); box-shadow: 0 0 0 3px #ff818920; }
+.records-status-acknowledged { color: #a7e9c6; background: #14271e; border-color: #39765a; }
+.records-status-acknowledged .records-status-dot { background: #4ade80; box-shadow: 0 0 0 3px #4ade8026; }
 .records-agency-summary { min-height: 74px; margin-top: 18px; color: #bdbdbd; font-size: 14px; line-height: 1.65; }
 .records-timeline { margin-top: 26px; }
 .records-event { position: relative; display: grid; grid-template-columns: 31px 1fr; gap: 15px; min-height: 146px; }
