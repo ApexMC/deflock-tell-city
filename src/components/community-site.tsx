@@ -2,56 +2,19 @@
 
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
-import { ArrowDown, ArrowUpRight, Check, CheckCheck, CircleHelp, Database, Fingerprint, Home, LoaderCircle, LockKeyhole, MapPin, Menu, Network, Route, ScanLine, ShieldCheck, X } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Check, CheckCheck, Fingerprint, LoaderCircle, LockKeyhole, MapPin, Menu, Network, Route, ScanLine, ShieldCheck, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { faqs, risks, sources } from "@/lib/content";
+import { faqs, risks } from "@/lib/content";
 
 const riskIcons = [Route, Network, ScanLine, ShieldCheck];
-const steps = [
-  { id: "capture", name: "Capture", title: "A passing car becomes a record.", copy: "These cameras read every single plate that passes it and records when and where the vehicle passed. You don’t need to be suspected of a crime.", label: "PLATE CAPTURED", icon: ScanLine },
-  { id: "store", name: "Store", title: "A moment becomes searchable.", copy: "The sighting is stored in a database. Retention periods and rules for preserving evidence depend on the agency’s policies.", label: "RECORD STORED", icon: Database },
-  { id: "search", name: "Search", title: "Separate sightings become a pattern.", copy: "Authorized users can search vehicle records. Access beyond the local agency depends on the sharing permissions it enables.", label: "SIGHTINGS CONNECTED", icon: Network },
-];
 
 function Brand({ footer = false }: { footer?: boolean }) {
   return <Link className={`brand ${footer ? "brand-footer" : ""}`} href="/#top" aria-label="DeFlock Tell City home"><span className="brand-mark"><ScanLine size={23} strokeWidth={1.9} /></span><span>DeFlock<span className="brand-city">TELL CITY</span></span></Link>;
-}
-
-function Journey() {
-  const [step, setStep] = useState("capture");
-  const index = steps.findIndex((s) => s.id === step);
-  const Icon = steps[index].icon;
-  return <div className="journey" id="how-it-works">
-    <div className="journey-heading"><span className="eyebrow">THE ANATOMY OF A PLATE SCAN</span><ScanLine size={19} /></div>
-    <h2>One drive. A data trail.</h2>
-    <Tabs value={step} onValueChange={(value) => setStep(String(value))} className="journey-tabs">
-      <TabsList aria-label="Explore how a plate scan works" className="journey-tab-list">
-        {steps.map((item, i) => <TabsTrigger className="journey-tab" key={item.id} value={item.id}><span>0{i + 1}</span> {item.name}</TabsTrigger>)}
-      </TabsList>
-      <div className={`journey-visual journey-step-${index}`} aria-hidden="true">
-        <div className="route-label"><span>AN EVERYDAY JOURNEY</span><span>EXAMPLE ONLY</span></div>
-        <div className="route-diagram">
-          <svg className="route-line" viewBox="0 0 400 130" preserveAspectRatio="none"><path d="M45 38 H135 Q160 38 160 66 V82 Q160 105 185 105 H225 Q250 105 250 80 V61 Q250 38 275 38 H355" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="4 5" /></svg>
-          <div className="route-point point-home"><div><Home size={20} /></div><span>Home</span><small>07:42 AM</small></div>
-          <div className="route-point point-scan"><div><ScanLine size={22} /></div><span>Plate read</span><small>07:48 AM</small></div>
-          <div className="route-point point-work"><div><MapPin size={20} /></div><span>Work</span><small>07:56 AM</small></div>
-        </div>
-        <div className="scan-record" key={step}>
-          <div className="record-heading"><Icon size={15} /><span>{steps[index].label}</span><span className="record-number">0{index + 1}</span></div>
-          <div className="record-body"><span className="demo-plate">DEMO 001</span><div><small>{index === 2 ? "SEARCH RESULT" : "LOCATION + TIME"}</small><strong>{index === 2 ? "Vehicle sightings linked" : "Camera A · 07:48 AM"}</strong></div><Check size={17} /></div>
-        </div>
-        <p className="diagram-note">Illustrative route, not actual camera locations.</p>
-      </div>
-      {steps.map((item) => <TabsContent key={item.id} value={item.id} className="journey-panel"><h3>{item.title}</h3><p>{item.copy}</p></TabsContent>)}
-    </Tabs>
-    <div className="journey-bottom"><span><CircleHelp size={14} /> Follow the three steps above</span><a href={sources[0].url} target="_blank" rel="noreferrer" aria-label="Read EFF’s explanation of ALPR technology (opens in a new tab)">The technology <ArrowUpRight size={14} /></a></div>
-  </div>;
 }
 
 function PetitionStatement() {
@@ -142,14 +105,33 @@ export function CommunitySite() {
 
   return <div id="top">
     <a className="skip-link" href="#main">Skip to content</a>
-    <header className="site-header"><div className="container header-inner"><Brand /><nav className="desktop-nav" aria-label="Main navigation"><a href="#how-it-works">How it works</a><a href="#risks">The risks</a><a href="https://maps.deflock.org/?lat=37.9650&lng=-86.7310&zoom=11.04" target="_blank" rel="noreferrer">Camera map</a><Link href="/public-records">Public records</Link><a href="#questions">Common questions</a></nav><a href="#petition" className="nav-petition">Sign the petition <ArrowUpRight size={16} /></a><Button variant="ghost" size="icon" className="mobile-menu-button" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="mobile-nav" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</Button></div>{menuOpen && <nav id="mobile-nav" className="mobile-nav" aria-label="Mobile navigation">{[{ text: "How it works", href: "#how-it-works" }, { text: "The risks", href: "#risks" }, { text: "Camera map", href: "https://maps.deflock.org/?lat=37.9650&lng=-86.7310&zoom=11.04", external: true }, { text: "Public records", href: "/public-records" }, { text: "Common questions", href: "#questions" }, { text: "Sign the petition", href: "#petition" }].map(({ text, href, external }) => <Link key={href} href={href} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined} onClick={() => setMenuOpen(false)}>{text}<ArrowUpRight size={16} /></Link>)}</nav>}</header>
+    <header className="site-header"><div className="container header-inner"><Brand /><nav className="desktop-nav" aria-label="Main navigation"><a href="#risks">The risks</a><a href="https://maps.deflock.org/?lat=37.9650&lng=-86.7310&zoom=11.04" target="_blank" rel="noreferrer">Camera map</a><Link href="/public-records">Public records</Link><a href="#questions">Common questions</a></nav><a href="#petition" className="nav-petition">Sign the petition <ArrowUpRight size={16} /></a><Button variant="ghost" size="icon" className="mobile-menu-button" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="mobile-nav" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</Button></div>{menuOpen && <nav id="mobile-nav" className="mobile-nav" aria-label="Mobile navigation">{[{ text: "The risks", href: "#risks" }, { text: "Camera map", href: "https://maps.deflock.org/?lat=37.9650&lng=-86.7310&zoom=11.04", external: true }, { text: "Public records", href: "/public-records" }, { text: "Common questions", href: "#questions" }, { text: "Sign the petition", href: "#petition" }].map(({ text, href, external }) => <Link key={href} href={href} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined} onClick={() => setMenuOpen(false)}>{text}<ArrowUpRight size={16} /></Link>)}</nav>}</header>
 
     <main id="main">
-      <section className="hero container" aria-labelledby="hero-title"><div className="hero-copy"><div className="location-tag"><MapPin size={14} /><span>TELL CITY, INDIANA</span><span className="tag-divider" />A COMMUNITY INITIATIVE</div><h1 id="hero-title">Our streets.<br />Our lives.<br /><span>Our privacy.</span></h1><p className="hero-description">Living in a small town shouldn’t mean leaving a searchable trail. Let’s take a closer look at license plate cameras—and have a say in their place in our community.</p><div className="hero-actions"><a className="action-button" href="#petition">Sign the petition <ArrowUpRight size={18} /></a><Link className="public-records-action" href="/public-records">Public records <ArrowUpRight size={16} /></Link><a className="secondary-action" href="#risks">Understand the risks <ArrowDown size={16} /></a></div><div className="hero-footnote"><Fingerprint size={20} /><span>Public safety matters. So does your privacy.</span></div></div><Journey /></section>
+      <section className="hero container" aria-labelledby="hero-title">
+        <div className="hero-copy">
+          <div className="location-tag"><MapPin size={14} /><span>TELL CITY, INDIANA</span><span className="tag-divider" />A COMMUNITY INITIATIVE</div>
+          <h1 id="hero-title">Our streets.<br />Our lives.<br /><span>Our privacy.</span></h1>
+          <p className="hero-description">Living in a small town shouldn’t mean leaving a searchable trail. Ask Tell City’s leaders to end the use of Flock cameras and other license plate readers, remove the cameras, and protect our privacy.</p>
+          <div className="hero-petition-statement"><PetitionStatement /></div>
+          <div className="signature-total" aria-live="polite" aria-atomic="true"><strong>{formattedCount}</strong><span>signatures submitted</span></div>
+          {countError && <div className="count-error" role="status">{count === null ? "The count is temporarily unavailable." : "The count may be out of date."} <button onClick={() => void refreshCount()}>Retry</button></div>}
+          <p className="count-note">One signature per email. Residency and identity are self-reported.</p>
+          <div className="hero-actions"><Link className="public-records-action" href="/public-records">Public records <ArrowUpRight size={16} /></Link><a className="secondary-action" href="#risks">Understand the risks <ArrowDown size={16} /></a></div>
+        </div>
+        <section className="petition-card" id="petition" aria-labelledby="petition-title">{signed ? <div className="success-state" ref={successRef} tabIndex={-1}><span className="success-icon"><CheckCheck size={32} /></span><span className="eyebrow">YOUR SIGNATURE IS SAVED</span><h2 id="petition-title">You’ve made<br />your voice count.</h2><p>Thank you for standing up for privacy in Tell City. Your signature is now included in the community total.</p><Button className="form-submit" onClick={copyLink}>{copied ? "Link copied" : "Copy the petition link"}{copied ? <Check size={18} /> : <ArrowUpRight size={18} />}</Button><p className="share-status" role="status">{copyError ? `Copy this address to share: ${typeof window !== "undefined" ? window.location.origin : ""}/#petition` : "A conversation with a neighbor is a good next step."}</p></div> : <><div className="form-heading"><div><h2 id="petition-title">Add your name.</h2><p>Support the removal of Flock cameras in Tell City.</p></div><Fingerprint size={28} strokeWidth={1.5} /></div><form ref={formRef} onSubmit={submit} aria-busy={busy}>
+          <div className="form-field"><Label htmlFor="petition-name">Full name <span aria-hidden="true">*</span></Label><Input id="petition-name" name="name" placeholder="Your first and last name" autoComplete="name" required minLength={2} maxLength={120} disabled={busy} /></div>
+          <div className="form-field"><Label htmlFor="petition-email">Email address <span aria-hidden="true">*</span></Label><Input id="petition-email" name="email" type="email" placeholder="you@example.com" autoComplete="email" required maxLength={254} disabled={busy} aria-describedby="email-note" /><p id="email-note" className="field-note">Only used to prevent duplicate signatures. No mailing list.</p></div>
+          <div className="form-field"><Label htmlFor="petition-zip">ZIP code <span aria-hidden="true">*</span></Label><Input id="petition-zip" name="zip" placeholder="47586" autoComplete="postal-code" inputMode="numeric" pattern="47586" title="This petition is for Tell City residents in ZIP code 47586." required maxLength={5} disabled={busy} /><p className="field-note">For residents of Tell City, Indiana.</p></div>
+          <div className="honeypot" aria-hidden="true"><label htmlFor="website">Leave this blank</label><input id="website" name="website" tabIndex={-1} autoComplete="off" /></div>
+          <div className="consent-field"><Checkbox id="petition-consent" checked={consent} onCheckedChange={(checked) => setConsent(checked === true)} disabled={busy} aria-describedby="petition-privacy" /><Label htmlFor="petition-consent">I live or work in Tell City and support this petition. I agree that my name and ZIP code may be included in a petition submitted to city officials.</Label></div>
+          {error && <p className="form-error" role="alert">{error}</p>}
+          <Button type="submit" className="form-submit" disabled={busy}>{busy ? <><LoaderCircle className="animate-spin" size={18} /> Saving your signature…</> : <>Sign the petition <ArrowUpRight size={18} /></>}</Button>
+          <div className="form-privacy" id="petition-privacy"><LockKeyhole size={14} /><span>Your details are not displayed publicly.</span></div><PrivacyDetails />
+        </form></>}</section>
+      </section>
 
-      <div className="community-strip"><div className="container strip-inner"><span><span className="strip-symbol">↳</span> A small town deserves a big say.</span><a href="#petition"><strong>{formattedCount}</strong> signatures submitted <ArrowUpRight size={18} /></a></div></div>
-
-      <section className="section container risks-section" id="risks" aria-labelledby="risks-title"><div className="section-heading"><div><span className="eyebrow section-kicker">01 / UNDERSTAND THE RISKS</span><h2 id="risks-title">More than a picture<br />of a license plate.</h2></div><p>Ordinary trips can leave extraordinary amounts of information. Here’s what deserves a closer look.</p></div><Accordion multiple className="risk-grid">{risks.map((risk, i) => { const Icon = riskIcons[i]; return <AccordionItem key={risk.id} value={risk.id} className="risk-card"><div className="risk-card-top"><Icon size={26} strokeWidth={1.5} /><span>{risk.id}</span></div><AccordionTrigger className="risk-trigger"><span><strong>{risk.title}</strong><span>{risk.short}</span><span className="risk-read">Explore the concern</span></span></AccordionTrigger><AccordionContent className="risk-detail"><p>{risk.detail}</p><div><span className="eyebrow">A QUESTION FOR OUR CITY</span><strong>{risk.question}</strong></div><a href={sources[i === 0 ? 0 : i === 3 ? 3 : 2].url} target="_blank" rel="noreferrer">Read the source <ArrowUpRight size={14} /></a></AccordionContent></AccordionItem>; })}</Accordion>
+      <section className="section container risks-section" id="risks" aria-labelledby="risks-title"><div className="section-heading"><div><span className="eyebrow section-kicker">UNDERSTAND THE RISKS</span><h2 id="risks-title">More than a picture<br />of a license plate.</h2></div><p>Ordinary trips can leave extraordinary amounts of information. Here’s what deserves a closer look.</p></div><Accordion multiple className="risk-grid">{risks.map((risk, i) => { const Icon = riskIcons[i]; return <AccordionItem key={risk.id} value={risk.id} className="risk-card"><div className="risk-card-top"><Icon size={26} strokeWidth={1.5} /><span>{risk.id}</span></div><AccordionTrigger className="risk-trigger"><span><strong>{risk.title}</strong><span>{risk.short}</span><span className="risk-read">Explore the concern</span></span></AccordionTrigger><AccordionContent className="risk-detail"><p>{risk.detail}</p><div><span className="eyebrow">A QUESTION FOR OUR CITY</span><strong>{risk.question}</strong></div><a href={risk.source} target="_blank" rel="noreferrer">Read TCPD’s policy <ArrowUpRight size={14} /></a></AccordionContent></AccordionItem>; })}</Accordion>
         <aside className="privacy-principle" aria-labelledby="privacy-principle-title">
           <div>
             <span className="eyebrow">THE “NOTHING TO HIDE” ARGUMENT</span>
@@ -161,24 +143,10 @@ export function CommunitySite() {
             <p className="privacy-principle-stance">“If you aren’t doing anything wrong, you have nothing to worry about” misses the point. Privacy is worth protecting even when you have nothing to hide. We reject the police-state logic that everyone should be monitored just in case it proves useful.</p>
           </div>
         </aside>
-        <div className="local-note"><MapPin size={21} /><div><strong>This is a local conversation.</strong><p>Tell City’s introduction of Flock equipment was reported in 2021. Today’s camera inventory, contracts, and policies need current city records.</p></div><a href={sources[1].url} target="_blank" rel="noreferrer">Read the local reporting <ArrowUpRight size={16} /></a></div></section>
+        <div className="local-note"><MapPin size={21} /><div><strong>This is a local conversation.</strong><p>TCPD released its ALPR policy, original contract, invoices, and council briefing with its October 2, 2026 response.</p></div><Link href="/public-records#tcpd-records">View the released records <ArrowUpRight size={16} /></Link></div></section>
 
-      <section className="petition-section" id="petition" aria-labelledby="petition-title"><div className="container petition-grid"><div className="petition-copy"><span className="eyebrow section-kicker">02 / MAKE YOUR VOICE COUNT</span><h2 id="petition-title">A community.<br />Not a collection<br />of data points.</h2><p>Ask Tell City’s leaders to end the use of Flock cameras and other ALPR systems, remove the cameras, and put residents’ privacy first.</p><PetitionStatement /><div className="signature-total" aria-live="polite" aria-atomic="true"><strong>{formattedCount}</strong><span>signatures submitted<br /><small>Every voice starts a conversation.</small></span></div>{countError && <div className="count-error" role="status">{count === null ? "The count is temporarily unavailable." : "The count may be out of date."} <button onClick={() => void refreshCount()}>Retry</button></div>}<p className="count-note">Real submissions. One signature per email.<br />Residency and identity are self-reported.</p></div>
-        <div className="petition-card">{signed ? <div className="success-state" ref={successRef} tabIndex={-1}><span className="success-icon"><CheckCheck size={32} /></span><span className="eyebrow">YOUR SIGNATURE IS SAVED</span><h3>You’ve made<br />your voice count.</h3><p>Thank you for standing up for privacy in Tell City. Your signature is now included in the community total.</p><Button className="form-submit" onClick={copyLink}>{copied ? "Link copied" : "Copy the petition link"}{copied ? <Check size={18} /> : <ArrowUpRight size={18} />}</Button><p className="share-status" role="status">{copyError ? `Copy this address to share: ${typeof window !== "undefined" ? window.location.origin : ""}/#petition` : "A conversation with a neighbor is a good next step."}</p></div> : <><div className="form-heading"><div><h3>Add your name.</h3><p>A minute of your time. A say in our future.</p></div><Fingerprint size={28} strokeWidth={1.5} /></div><form ref={formRef} onSubmit={submit} aria-busy={busy}>
-          <div className="form-field"><Label htmlFor="petition-name">Full name <span aria-hidden="true">*</span></Label><Input id="petition-name" name="name" placeholder="Your first and last name" autoComplete="name" required minLength={2} maxLength={120} disabled={busy} /></div>
-          <div className="form-field"><Label htmlFor="petition-email">Email address <span aria-hidden="true">*</span></Label><Input id="petition-email" name="email" type="email" placeholder="you@example.com" autoComplete="email" required maxLength={254} disabled={busy} aria-describedby="email-note" /><p id="email-note" className="field-note">Only used to prevent duplicate signatures. No mailing list.</p></div>
-          <div className="form-field"><Label htmlFor="petition-zip">ZIP code <span aria-hidden="true">*</span></Label><Input id="petition-zip" name="zip" placeholder="47586" autoComplete="postal-code" inputMode="numeric" pattern="47586" title="This petition is for Tell City residents in ZIP code 47586." required maxLength={5} disabled={busy} /><p className="field-note">For residents of Tell City, Indiana.</p></div>
-          <div className="honeypot" aria-hidden="true"><label htmlFor="website">Leave this blank</label><input id="website" name="website" tabIndex={-1} autoComplete="off" /></div>
-          <div className="consent-field"><Checkbox id="petition-consent" checked={consent} onCheckedChange={(checked) => setConsent(checked === true)} disabled={busy} aria-describedby="petition-privacy" /><Label htmlFor="petition-consent">I live or work in Tell City and support this petition. I agree that my name and ZIP code may be included in a petition submitted to city officials.</Label></div>
-          {error && <p className="form-error" role="alert">{error}</p>}
-          <Button type="submit" className="form-submit" disabled={busy}>{busy ? <><LoaderCircle className="animate-spin" size={18} /> Saving your signature…</> : <>Sign the petition <ArrowUpRight size={18} /></>}</Button>
-          <div className="form-privacy" id="petition-privacy"><LockKeyhole size={14} /><span>Your details are not displayed publicly.</span></div><PrivacyDetails />
-        </form></>}</div>
-      </div></section>
+      <section className="section container faq-section" id="questions" aria-labelledby="faq-title"><div><span className="eyebrow section-kicker">COMMON QUESTIONS</span><h2 id="faq-title">Good questions.<br />Straight answers.</h2><p>You don’t need to be a technology expert to be part of this conversation.</p></div><Accordion className="faq-list">{faqs.map((faq, i) => <AccordionItem key={faq.q} value={String(i)}><AccordionTrigger>{faq.q}</AccordionTrigger><AccordionContent><p>{faq.a}</p>{faq.source && <a className="text-link faq-source" href={faq.source.href} target="_blank" rel="noreferrer">{faq.source.label} <ArrowUpRight size={14} /></a>}</AccordionContent></AccordionItem>)}</Accordion></section>
 
-      <section className="section container faq-section" id="questions" aria-labelledby="faq-title"><div><span className="eyebrow section-kicker">03 / A LITTLE MORE CLARITY</span><h2 id="faq-title">Good questions.<br />Straight answers.</h2><p>You don’t need to be a technology expert to be part of this conversation.</p></div><Accordion className="faq-list">{faqs.map((faq, i) => <AccordionItem key={faq.q} value={String(i)}><AccordionTrigger>{faq.q}</AccordionTrigger><AccordionContent><p>{faq.a}</p></AccordionContent></AccordionItem>)}</Accordion></section>
-
-      <section className="sources-section container" id="sources" aria-labelledby="sources-title"><div className="sources-heading"><div><span className="eyebrow section-kicker">KEEP READING</span><h2 id="sources-title">Don’t just take our word for it.</h2></div><span className="sources-caption">Independent reporting. Primary sources. Vendor policies.</span></div><div className="source-list">{sources.map((source, i) => <a href={source.url} key={source.url} target="_blank" rel="noreferrer"><span className="source-number">0{i + 1}</span><div><strong>{source.name}</strong><span>{source.publisher}</span></div><span className="source-type">{source.type}</span><ArrowUpRight size={20} /></a>)}</div><p className="sources-note">Sources reviewed September 10, 2026. Local reporting is historical; vendor policies may change.</p></section>
     </main>
 
     <footer className="site-footer"><div className="container footer-top"><Brand footer /><p>Our town. Our conversation.<br />Our right to a private life.</p><a href="#top">Back to top <ArrowUpRight size={16} /></a></div><div className="container footer-bottom"><span>An independent community petition. Not affiliated with city government or Flock Safety.</span><span>TELL CITY, IN · 47586</span></div></footer>

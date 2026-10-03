@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { tcpdRecords } from "@/lib/public-records";
 import {
   ArrowLeft,
   ArrowUpRight,
@@ -41,10 +42,10 @@ const timelines: AgencyTimeline[] = [
     id: "tell-city",
     agency: "Tell City / Tell City Police",
     jurisdiction: "Municipal request",
-    status: "Acknowledged · awaiting records",
+    status: "Response and records released",
     statusTone: "acknowledged",
     summary:
-      "Tell City confirmed receipt one week after delivery and referred the request to the Chief of Police.",
+      "TCPD supplied an ALPR policy and acknowledgment form, original Flock agreement, invoices, and council briefing with its October 2, 2026 response.",
     logo: { src: "/images/tcpd_logo.png", width: 148, height: 151 },
     events: [
       {
@@ -71,20 +72,13 @@ const timelines: AgencyTimeline[] = [
         state: "complete",
       },
       {
-        date: "Current status",
-        label: "AWAITING RELEASE",
-        title: "Records pending",
-        description: "No responsive records have been received yet.",
-        state: "current",
-      },
-      {
-        date: "Date to be determined",
-        label: "NEXT MILESTONE",
-        title: "Records received",
+        date: "October 2, 2026",
+        label: "FRIDAY · RECORDS RELEASED",
+        title: "TCPD response and records received",
         description:
-          "When records are released, links to view each file will appear with this event.",
-        state: "future",
-        links: [],
+          "The department released the records it presently identified. Its letter invites clarification of categories not addressed and says investigation, search, audit, and system-security records require review before release.",
+        state: "complete",
+        links: [{ label: "View released records", href: "#tcpd-records" }],
       },
     ],
   },
@@ -194,7 +188,7 @@ function Timeline({ timeline }: { timeline: AgencyTimeline }) {
               {event.links && event.links.length > 0 && (
                 <div className="records-files" aria-label={`Records released by ${timeline.agency}`}>
                   {event.links.map((record) => (
-                    <a href={record.href} key={record.href} target="_blank" rel="noreferrer">
+                    <a href={record.href} key={record.href} target={record.href.startsWith("#") ? undefined : "_blank"} rel={record.href.startsWith("#") ? undefined : "noreferrer"}>
                       <FileSearch size={16} />
                       {record.label}
                       <ArrowUpRight size={14} />
@@ -234,7 +228,7 @@ export default function PublicRecordsPage() {
       <main id="main">
         <section className="records-hero container" aria-labelledby="records-title">
           <div className="records-hero-copy">
-            <span className="eyebrow section-kicker">PUBLIC RECORDS TRACKER · UPDATED SEPTEMBER 18, 2026</span>
+            <span className="eyebrow section-kicker">PUBLIC RECORDS TRACKER · UPDATED OCTOBER 2, 2026</span>
             <h1 id="records-title">
               Public records.<br />
               <span>Public timeline.</span>
@@ -254,8 +248,8 @@ export default function PublicRecordsPage() {
               <dd>1</dd>
             </div>
             <div>
-              <dt>Records received</dt>
-              <dd>0</dd>
+              <dt>Agencies releasing records</dt>
+              <dd>1</dd>
             </div>
           </dl>
         </section>
@@ -273,13 +267,31 @@ export default function PublicRecordsPage() {
           ))}
         </section>
 
+        <section className="records-library container" id="tcpd-records" aria-labelledby="tcpd-records-title">
+          <span className="eyebrow section-kicker">RELEASED OCTOBER 2, 2026</span>
+          <h2 id="tcpd-records-title">Records released by TCPD.</h2>
+          <p>Read the documents supplied with the department’s October 2 response. The response addresses the records presently identified and provided; it does not establish that every requested category has been supplied.</p>
+          <ul className="records-document-list">
+            {tcpdRecords.map((record) => (
+              <li key={record.href}>
+                <a href={record.href} target="_blank" rel="noreferrer">
+                  <FileSearch size={20} aria-hidden="true" />
+                  <span><strong>{record.label}</strong><small>{record.detail}</small></span>
+                  <ArrowUpRight size={18} aria-hidden="true" />
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p className="records-library-note">The supplied invoice folder contains three identical copies of INV-21951. It is listed once here. These documents describe the department’s policies and reported practices; they do not independently verify how the system is used.</p>
+        </section>
+
         <aside className="records-note container" aria-labelledby="records-note-title">
           <FileSearch size={25} strokeWidth={1.6} aria-hidden="true" />
           <div>
             <span className="eyebrow">WHY TRACK THIS PUBLICLY?</span>
             <h2 id="records-note-title">Transparency should be easy to follow.</h2>
             <p>
-              This page reflects correspondence and formal actions taken as of September 18, 2026. It will be updated as agencies respond and records are released.
+              The Tell City timeline and document links reflect TCPD’s October 2, 2026 response. The Perry County timeline reflects the last recorded action on September 18, 2026; no later county response is documented here.
             </p>
           </div>
         </aside>
